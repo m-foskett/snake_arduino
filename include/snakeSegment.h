@@ -11,7 +11,7 @@ private:
 
 public:
     // Constructor Function Declaration
-    // SnakeSegment(); // Default Constructor
+    SnakeSegment();                                 // Default Constructor
     SnakeSegment(int x, int y, SnakeSegment *next); // Explicit Constructor
     // Member Function Declarations
 

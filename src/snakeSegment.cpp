@@ -3,9 +3,9 @@
 #include "snakeSegment.h"
 
 // Constructor Function Definition
-// SnakeSegment::SnakeSegment(){
+SnakeSegment::SnakeSegment(){
 
-// };
+};
 
 SnakeSegment::SnakeSegment(int x, int y, SnakeSegment *next)
     : m_x{x},

@@ -12,9 +12,10 @@ class Snake
 {
 private:
     int m_snakeLength{2};
+
+public:
     SnakeSegment storage_array[maxSnakeLength];
     Vector<SnakeSegment> tail; // Dynamic Container
-public:
     // Constructor Function Declaration
     Snake(int snakeLength);
     // Member Function Declarations

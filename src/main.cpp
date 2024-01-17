@@ -4,9 +4,19 @@
 #include "LedControl.h"
 #include "snakeSegment.h"
 #include "snake.h"
+#include "fruit.h"
+#include "display.h"
 
 // #include "avr8-stub.h"
 // #include "app_api.h" // only needed with flash breakpoints
+
+enum direction
+{
+  UP,
+  DOWN,
+  LEFT,
+  RIGHT
+};
 
 // Create an instance of the LedControl class
 //  Pin 12 is connected to the DataIn
@@ -16,6 +26,10 @@
 LedControl lc = LedControl(12, 10, 11, 1);
 // Create an instance of the Snake class
 Snake snake = Snake(2);
+// Create an instance of the Fruit class
+Fruit fruit = Fruit();
+// Create an instance of the Display class
+Display display = Display();
 
 void setup()
 {
@@ -40,15 +54,13 @@ void setup()
   Serial.print(snake.tail.size());
   snake.tail.push_back(tail_1);
   Serial.print(snake.tail.size());
+  // Setup the default fruit
+  fruit.setX(6);
+  fruit.setY(3);
 }
 
 void loop()
 {
-  // Set the starting position of the snake
-  for (int i = 0; i < snake.tail.size(); i++)
-  {
-    // Print snake segment
-    lc.setLed(0, snake.tail.at(i).getX(), snake.tail.at(i).getY(), true);
-    delay(50);
-  }
+  // Update the display state
+  display.updateBoardState(snake, fruit, lc);
 }

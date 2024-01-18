@@ -25,11 +25,20 @@ byte Display::BoolArrayToByte(bool array[8])
 
 void Display::updateBoardState(Snake snake, Fruit fruit, LedControl lc)
 {
+    // Clear board
+    for (int i = 0; i < maxRows; i++)
+    {
+        for (int j = 0; j < maxCols; j++)
+        {
+            board[i][j] = false;
+        }
+    }
+    lc.clearDisplay(0);
     // Loop through snake segments
     for (int i = 0; i < snake.tail.size(); i++)
     {
         // Store snake segment location into the 2D board array
-        board[snake.tail.at(i).getX()][snake.tail.at(i).getY()] = true;
+        board[snake.tail.at(i)->getX()][snake.tail.at(i)->getY()] = true;
     };
     // Store fruit location into the 2D board array
     board[fruit.getX()][fruit.getY()] = true;

@@ -7,6 +7,14 @@
 // Constants
 const int maxSnakeLength{64};
 
+enum direction
+{
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+};
+
 // Snake Class
 class Snake
 {
@@ -14,12 +22,13 @@ private:
     int m_snakeLength{2};
 
 public:
-    SnakeSegment storage_array[maxSnakeLength];
-    Vector<SnakeSegment> tail; // Dynamic Container
+    direction direction{UP};
+    SnakeSegment *storage_array[maxSnakeLength];
+    Vector<SnakeSegment *> tail; // Dynamic Container
     // Constructor Function Declaration
     Snake(int snakeLength);
     // Member Function Declarations
-    void drawSnake();
+    void moveSnake();
     // void AddTailSegment();
     // Access Function Definitions
     int getSnakeLength() const { return m_snakeLength; }                  // getter for snakeLength

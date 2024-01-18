@@ -10,14 +10,6 @@
 // #include "avr8-stub.h"
 // #include "app_api.h" // only needed with flash breakpoints
 
-enum direction
-{
-  UP,
-  DOWN,
-  LEFT,
-  RIGHT
-};
-
 // Create an instance of the LedControl class
 //  Pin 12 is connected to the DataIn
 //  Pin 10 is connected to the CLK
@@ -47,8 +39,9 @@ void setup()
   Serial.begin(115200);
   // Setup the default snake (Head and 1 Tail Segment)
   snake.tail.setStorage(snake.storage_array); // Setup the SnakeSegment storage array
-  SnakeSegment tail_1 = SnakeSegment(0, 3, NULL);
-  SnakeSegment head = SnakeSegment(1, 3, &tail_1);
+  SnakeSegment *tail_1 = new SnakeSegment(0, 3);
+  SnakeSegment *head = new SnakeSegment(1, 3);
+  head->next = tail_1;
   Serial.print(snake.tail.size());
   snake.tail.push_back(head);
   Serial.print(snake.tail.size());
@@ -61,6 +54,10 @@ void setup()
 
 void loop()
 {
+  // Move the snake
+  snake.moveSnake();
   // Update the display state
   display.updateBoardState(snake, fruit, lc);
+  // Add a delay between snake movement
+  delay(1000);
 }

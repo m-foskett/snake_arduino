@@ -7,10 +7,9 @@ SnakeSegment::SnakeSegment(){
 
 };
 
-SnakeSegment::SnakeSegment(int x, int y, SnakeSegment *next)
+SnakeSegment::SnakeSegment(int x, int y)
     : m_x{x},
-      m_y{y},
-      m_next{next}
+      m_y{y}
 {
 }
 

@@ -65,7 +65,7 @@ void Snake::moveSnake()
         break;
     }
     // Add the new snake head to the front of the snake segment tail
-    tail.front() = head;
+    // tail.front() = head;
     // Pop the tail segment
-    tail.pop_back();
+    // tail.pop_back();
 };

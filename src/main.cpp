@@ -39,14 +39,15 @@ void setup()
   Serial.begin(115200);
   // Setup the default snake (Head and 1 Tail Segment)
   snake.tail.setStorage(snake.storage_array); // Setup the SnakeSegment storage array
-  SnakeSegment *tail_1 = new SnakeSegment(0, 3);
-  SnakeSegment *head = new SnakeSegment(1, 3);
+  SnakeSegment *head = new SnakeSegment(2, 3);
+  SnakeSegment *tail_1 = new SnakeSegment(1, 3);
+  SnakeSegment *tail_2 = new SnakeSegment(0, 3);
   head->next = tail_1;
-  Serial.print(snake.tail.size());
+  tail_1->next = tail_2;
+  tail_2->next = NULL;
   snake.tail.push_back(head);
-  Serial.print(snake.tail.size());
   snake.tail.push_back(tail_1);
-  Serial.print(snake.tail.size());
+  snake.tail.push_back(tail_2);
   // Setup the default fruit
   fruit.setX(6);
   fruit.setY(3);

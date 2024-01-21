@@ -47,6 +47,6 @@ void Display::updateBoardState(Snake snake, Fruit fruit, LedControl lc)
     {
         // Set the current row's LED byte pattern
         lc.setRow(0, i, Display::BoolArrayToByte(board[i]));
-        delay(50);
+        delay(25);
     }
 };

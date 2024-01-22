@@ -19,7 +19,7 @@ LedControl lc = LedControl(12, 10, 11, 1);
 // Create an instance of the Snake class
 Snake snake = Snake();
 // Create an instance of the Fruit class
-Fruit fruit = Fruit();
+Fruit *fruit = new Fruit();
 // Create an instance of the Display class
 Display display = Display();
 
@@ -45,15 +45,15 @@ void setup()
   snake.pushBack(0, 3);
 
   // Setup the default fruit
-  fruit.setX(6);
-  fruit.setY(4);
+  fruit->setX(6);
+  fruit->setY(3);
 }
 
 void loop()
 {
   // Serial.print(snake.tail.size());
   // Move the snake
-  snake.moveSnake();
+  snake.moveSnake(fruit);
   // Update the display state
   display.updateBoardState(snake, fruit, lc);
   // Add a delay between snake movement

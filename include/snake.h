@@ -2,6 +2,7 @@
 #define SNAKE_H
 
 #include "snakeSegment.h"
+#include "fruit.h"
 
 // Constants
 const int maxSnakeLength{64};
@@ -24,7 +25,7 @@ public:
     // Constructor Function Declaration
     Snake();
     // Member Function Declarations
-    void moveSnake();
+    void moveSnake(Fruit *fruit);
     void popBack();
     void pushFront(int x, int y);
     void pushBack(int x, int y);

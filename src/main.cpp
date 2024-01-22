@@ -23,6 +23,11 @@ Fruit *fruit = new Fruit();
 // Create an instance of the Display class
 Display display = Display();
 
+// Game State
+// true - Normal
+// false - Game Over
+bool continueGame = true;
+
 void setup()
 {
   // initialize GDB stub
@@ -51,11 +56,16 @@ void setup()
 
 void loop()
 {
-  // Serial.print(snake.tail.size());
-  // Move the snake
-  snake.moveSnake(fruit);
-  // Update the display state
-  display.updateBoardState(snake, fruit, lc);
-  // Add a delay between snake movement
-  delay(1000);
+  while (continueGame)
+  {
+    // Serial.print(snake.tail.size());
+    // Move the snake
+    continueGame = snake.moveSnake(fruit);
+    // Update the display state
+    display.updateBoardState(snake, fruit, lc);
+    // Add a delay between snake movement
+    delay(1000);
+  }
+  display.gameOver(lc);
+  delay(5000);
 }

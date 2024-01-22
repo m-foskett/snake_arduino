@@ -25,7 +25,7 @@ public:
     // Constructor Function Declaration
     Snake();
     // Member Function Declarations
-    void moveSnake(Fruit *fruit);
+    bool moveSnake(Fruit *fruit);
     void popBack();
     void pushFront(int x, int y);
     void pushBack(int x, int y);

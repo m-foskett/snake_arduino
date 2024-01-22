@@ -60,7 +60,7 @@ void Snake::pushBack(int x, int y)
     temp->next = newNode;
 }
 // Function: moveSnake()
-void Snake::moveSnake(Fruit *fruit)
+bool Snake::moveSnake(Fruit *fruit)
 {
     // Initialise new head position with old head position
     int newHeadX = head->getX();
@@ -113,6 +113,16 @@ void Snake::moveSnake(Fruit *fruit)
     }
     // Add the new snake head to the front of the snake segment tail
     this->pushFront(newHeadX, newHeadY);
+    // Check to see if the snake hit itself
+    SnakeSegment *temp = head;
+    while (temp != NULL)
+    {
+        if (newHeadX == temp->getX() && newHeadY == temp->getY())
+        {
+            // Snake hit itself
+            return false;
+        }
+    }
     // Check if the snake ate the fruit
     if (newHeadX == fruit->getX() && newHeadY == fruit->getY())
     {
@@ -120,8 +130,9 @@ void Snake::moveSnake(Fruit *fruit)
         fruit->setX(random(0, maxRows));
         fruit->setY(random(0, maxCols));
         // Return before popping the last tail segment to simulate tail growth
-        return;
+        return true;
     }
     // Pop the last tail segment
     this->popBack();
+    return true;
 };

@@ -5,6 +5,18 @@
 #include "snake.h"
 #include "LedControl.h"
 
+// GAME Pattern
+bool g_pattern[maxRows][maxCols] = {
+    {false, false, false, false, false, false, false, false},
+    {false, true, true, true, true, true, true, false},
+    {false, true, false, false, false, false, true, false},
+    {false, true, false, false, false, false, true, false},
+    {false, true, false, false, true, true, true, false},
+    {false, true, false, false, false, false, false, false},
+    {false, true, true, true, true, true, true, false},
+    {false, false, false, false, false, false, false, false}};
+// OVER Pattern
+
 // Constructor Function Definition
 Display::Display()
 {
@@ -51,3 +63,24 @@ void Display::updateBoardState(Snake snake, Fruit *fruit, LedControl lc)
         delay(50);
     }
 };
+
+void Display::gameOver(LedControl lc)
+{
+    // Update board to display GAME screen
+    // for (int i = 0; i < maxRows; i++)
+    // {
+    //     for (int j = 0; j < maxCols; j++)
+    //     {
+
+    //         board[i][j] = game[i][j];
+    //     }
+    // }
+
+    // Display the updated board state
+    for (int i = 0; i < maxRows; i++)
+    {
+        // Set the current row's LED byte pattern
+        lc.setRow(0, i, Display::BoolArrayToByte(g_pattern[i]));
+        delay(50);
+    }
+}

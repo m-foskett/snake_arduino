@@ -1,7 +1,6 @@
 #ifndef SNAKE_H
 #define SNAKE_H
 
-#include <Vector.h>
 #include "snakeSegment.h"
 
 // Constants
@@ -19,20 +18,17 @@ enum direction
 class Snake
 {
 private:
-    int m_snakeLength{2};
-
 public:
+    SnakeSegment *head{NULL};
     direction direction{UP};
-    SnakeSegment *storage_array[maxSnakeLength];
-    Vector<SnakeSegment *> tail; // Dynamic Container
     // Constructor Function Declaration
-    Snake(int snakeLength);
+    Snake();
     // Member Function Declarations
     void moveSnake();
-    // void AddTailSegment();
+    void popBack();
+    void pushFront(int x, int y);
+    void pushBack(int x, int y);
     // Access Function Definitions
-    int getSnakeLength() const { return m_snakeLength; }                  // getter for snakeLength
-    void setSnakeLength(int snakeLength) { m_snakeLength = snakeLength; } // setter for snakeLength
 };
 
 #endif

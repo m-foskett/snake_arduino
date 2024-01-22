@@ -12,7 +12,3 @@ SnakeSegment::SnakeSegment(int x, int y)
       m_y{y}
 {
 }
-
-// void Snake::drawSnake(){
-
-// };

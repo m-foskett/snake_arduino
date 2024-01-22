@@ -35,11 +35,12 @@ void Display::updateBoardState(Snake snake, Fruit fruit, LedControl lc)
     }
     lc.clearDisplay(0);
     // Loop through snake segments
-    for (int i = 0; i < snake.tail.size(); i++)
+    SnakeSegment *temp = snake.head;
+    while (temp != NULL)
     {
-        // Store snake segment location into the 2D board array
-        board[snake.tail.at(i)->getX()][snake.tail.at(i)->getY()] = true;
-    };
+        board[temp->getX()][temp->getY()] = true;
+        temp = temp->next;
+    }
     // Store fruit location into the 2D board array
     board[fruit.getX()][fruit.getY()] = true;
     // Display the updated board state
@@ -47,6 +48,6 @@ void Display::updateBoardState(Snake snake, Fruit fruit, LedControl lc)
     {
         // Set the current row's LED byte pattern
         lc.setRow(0, i, Display::BoolArrayToByte(board[i]));
-        delay(25);
+        delay(50);
     }
 };

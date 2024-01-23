@@ -15,6 +15,15 @@ bool g_pattern[maxRows][maxCols] = {
     {false, true, false, false, false, false, false, false},
     {false, true, true, true, true, true, true, false},
     {false, false, false, false, false, false, false, false}};
+bool a_pattern[maxRows][maxCols] = {
+    {false, false, false, false, false, false, false, false},
+    {false, true, false, false, false, false, true, false},
+    {false, true, false, false, false, false, true, false},
+    {false, true, true, true, true, true, true, false},
+    {false, true, true, false, false, true, true, false},
+    {false, false, true, false, false, true, false, false},
+    {false, false, false, true, true, false, false, false},
+    {false, false, false, false, false, false, false, false}};
 // OVER Pattern
 
 // Constructor Function Definition
@@ -81,6 +90,15 @@ void Display::gameOver(LedControl lc)
     {
         // Set the current row's LED byte pattern
         lc.setRow(0, i, Display::BoolArrayToByte(g_pattern[i]));
-        delay(50);
+        // delay(50);
     }
+    delay(500);
+    // Display the updated board state
+    for (int i = 0; i < maxRows; i++)
+    {
+        // Set the current row's LED byte pattern
+        lc.setRow(0, i, Display::BoolArrayToByte(a_pattern[i]));
+        // delay(50);
+    }
+    delay(500);
 }

@@ -111,8 +111,6 @@ bool Snake::moveSnake(Fruit *fruit)
     default:
         break;
     }
-    // Add the new snake head to the front of the snake segment tail
-    this->pushFront(newHeadX, newHeadY);
     // Check to see if the snake hit itself
     SnakeSegment *temp = head;
     while (temp != NULL)
@@ -122,7 +120,10 @@ bool Snake::moveSnake(Fruit *fruit)
             // Snake hit itself
             return false;
         }
+        temp = temp->next;
     }
+    // Add the new snake head to the front of the snake segment tail
+    this->pushFront(newHeadX, newHeadY);
     // Check if the snake ate the fruit
     if (newHeadX == fruit->getX() && newHeadY == fruit->getY())
     {

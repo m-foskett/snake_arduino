@@ -18,7 +18,7 @@ public:
     // Constructor Function Declaration
     Display(); // Default Constructor
     // Member Function Declarations
-    void updateBoardState(Snake snake, Fruit *fruit, LedControl lc);
+    void updateBoardState(Snake *snake, Fruit *fruit, LedControl lc);
     void gameOver(LedControl lc);
     unsigned char BoolArrayToByte(bool array[8]);
 };

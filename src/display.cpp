@@ -88,7 +88,7 @@ byte Display::BoolArrayToByte(bool array[8])
     return b;
 }
 
-void Display::updateBoardState(Snake snake, Fruit *fruit, LedControl lc)
+void Display::updateBoardState(Snake *snake, Fruit *fruit, LedControl lc)
 {
     // Clear board
     for (int i = 0; i < maxRows; i++)
@@ -100,7 +100,7 @@ void Display::updateBoardState(Snake snake, Fruit *fruit, LedControl lc)
     }
     lc.clearDisplay(0);
     // Loop through snake segments
-    SnakeSegment *temp = snake.head;
+    SnakeSegment *temp = snake->head;
     while (temp != NULL)
     {
         board[temp->getX()][temp->getY()] = true;
@@ -113,7 +113,6 @@ void Display::updateBoardState(Snake snake, Fruit *fruit, LedControl lc)
     {
         // Set the current row's LED byte pattern
         lc.setRow(0, i, Display::BoolArrayToByte(board[i]));
-        delay(50);
     }
 };
 

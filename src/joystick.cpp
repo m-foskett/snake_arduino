@@ -20,7 +20,7 @@ void Joystick::getDirection(Snake *snake)
 {
     int xReading;
     int yReading;
-    int variance = 25;
+    int variance = 30;
     // Read the X-axis analog input
     xReading = analogRead(VR_X);
     // Read the Y-axis analog input
@@ -30,5 +30,19 @@ void Joystick::getDirection(Snake *snake)
     if (xReading < variance && yReading > (maxAnalogReading / 2 - variance) && yReading < (maxAnalogReading / 2 + variance))
     {
         snake->direction = LEFT;
+    }
+    else if (xReading > (maxAnalogReading - variance) && yReading > (maxAnalogReading / 2 - variance) && yReading < (maxAnalogReading / 2 + variance))
+    {
+        snake->direction = RIGHT;
+    }
+    // Determine direction from user input
+    if (yReading < variance && xReading > (maxAnalogReading / 2 - variance) && xReading < (maxAnalogReading / 2 + variance))
+    {
+        snake->direction = UP;
+    }
+    // Determine direction from user input
+    if (yReading > (maxAnalogReading - variance) && xReading > (maxAnalogReading / 2 - variance) && xReading < (maxAnalogReading / 2 + variance))
+    {
+        snake->direction = DOWN;
     }
 };

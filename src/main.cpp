@@ -55,6 +55,8 @@ void setup()
   // Setup the default fruit
   fruit->setX(6);
   fruit->setY(3);
+  // Acquire the default center values of the joystick
+  joystick.getCentreValues();
 }
 
 void loop()

@@ -18,10 +18,13 @@ private:
     int SW;
 
 public:
+    int xCenter{0};
+    int yCenter{0};
     // Constructor Function Declaration
     Joystick(int xPin, int yPin, int swPin); // Default Constructor
     // Member Function Declarations
     void getDirection(Snake *snake);
+    void getCentreValues();
 };
 
 #endif

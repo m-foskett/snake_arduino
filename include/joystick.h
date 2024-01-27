@@ -16,6 +16,11 @@ private:
     int VR_Y;
     // SW (Switch) Pin
     int SW;
+    // Static Member Function and Pointer used for Interrupt Service Routine
+    //  - Declared as static as the address of the function must be known at compile time for attachInterrupt to work
+    void (*localPointerToCallback)(const int);
+    // static Joystick *sJoystick;
+    // static volatile bool continueGame;
 
 public:
     int xCenter{0};
@@ -25,6 +30,8 @@ public:
     // Member Function Declarations
     void getDirection(Snake *snake);
     void getCentreValues();
+    void joystickISR(void);
+    void playAgain();
 };
 
 #endif

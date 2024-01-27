@@ -3,9 +3,14 @@
 #include "joystick.h"
 #include "snake.h"
 
+// Initialise the static class pointer
+Joystick *Joystick::sJoystick{0};
+volatile bool Joystick::continueGame;
+
 // Constructor Function Definition
 Joystick::Joystick(int xPin, int yPin, int swPin)
 {
+
     VR_X = xPin;
     VR_Y = yPin;
     SW = swPin;
@@ -14,7 +19,30 @@ Joystick::Joystick(int xPin, int yPin, int swPin)
     pinMode(SW, INPUT);
     // Write HIGH to the switch pin for pull-up resistor
     digitalWrite(SW, HIGH);
+    // Assign current isntance to the pointer
+    sJoystick = this;
+    // Attach an interrupt service routine to interrrupt vector 0 (pin 2 - SW)
+    attachInterrupt(0, Joystick::joystickISR, CHANGE);
 }
+
+// Joystick ISR
+void Joystick::joystickISR(void)
+{
+    // If the joystick object has been initialised
+    if (sJoystick != 0)
+    {
+        // Play again
+        sJoystick->playAgain();
+    }
+}
+
+// Member Function: playAgain();
+void Joystick::playAgain()
+{
+    // Set continueGame to true
+    Joystick::continueGame = true;
+}
+
 //
 void Joystick::getDirection(Snake *snake)
 {

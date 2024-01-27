@@ -29,7 +29,7 @@ Display display = Display();
 // Game State
 // true - Normal
 // false - Game Over
-bool continueGame = true;
+// bool continueGame = true;
 
 void setup()
 {
@@ -61,11 +61,11 @@ void setup()
 
 void loop()
 {
-  while (continueGame)
+  while (joystick.continueGame)
   {
     // Serial.print(snake.tail.size());
     // Move the snake
-    continueGame = snake->moveSnake(fruit);
+    joystick.continueGame = snake->moveSnake(fruit);
     // Update the display state
     display.updateBoardState(snake, fruit, lc);
     // Get user input

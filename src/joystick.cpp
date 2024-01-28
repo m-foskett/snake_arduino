@@ -4,8 +4,13 @@
 #include "snake.h"
 
 // Initialise the static class pointer
-Joystick *Joystick::sJoystick{0};
-volatile bool Joystick::continueGame;
+Joystick *joystickPointer;
+// Global interrupt handler
+static void globalInterruptHandler(void)
+{
+    joystickPointer->joystickISR(); // Call the class member handler
+}
+// volatile bool Joystick::continueGame;
 
 // Constructor Function Definition
 Joystick::Joystick(int xPin, int yPin, int swPin)
@@ -19,21 +24,17 @@ Joystick::Joystick(int xPin, int yPin, int swPin)
     pinMode(SW, INPUT);
     // Write HIGH to the switch pin for pull-up resistor
     digitalWrite(SW, HIGH);
-    // Assign current isntance to the pointer
-    sJoystick = this;
+    // Assign current instance to the pointer
+    joystickPointer = this;
     // Attach an interrupt service routine to interrrupt vector 0 (pin 2 - SW)
-    attachInterrupt(0, Joystick::joystickISR, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(SW), globalInterruptHandler, CHANGE);
 }
 
 // Joystick ISR
 void Joystick::joystickISR(void)
 {
-    // If the joystick object has been initialised
-    if (sJoystick != 0)
-    {
-        // Play again
-        sJoystick->playAgain();
-    }
+    // Play again
+    playAgain();
 }
 
 // Member Function: playAgain();

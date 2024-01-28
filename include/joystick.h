@@ -20,9 +20,9 @@ private:
     //  - Declared as static as the address of the function must be known at compile time for attachInterrupt to work
     void (*localPointerToCallback)(const int);
     // static Joystick *sJoystick;
-    // static volatile bool continueGame;
 
 public:
+    volatile bool continueGame;
     int xCenter{0};
     int yCenter{0};
     // Constructor Function Declaration
@@ -30,8 +30,8 @@ public:
     // Member Function Declarations
     void getDirection(Snake *snake);
     void getCentreValues();
-    void joystickISR(void);
     void playAgain();
+    void joystickISR(void);
 };
 
 #endif

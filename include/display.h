@@ -18,8 +18,10 @@ public:
     // Constructor Function Declaration
     Display(); // Default Constructor
     // Member Function Declarations
+    void resetBoardState(LedControl lc);
     void updateBoardState(Snake *snake, Fruit *fruit, LedControl lc);
     void gameOver(LedControl lc);
+    byte *updatePattern(byte *patternToUpdate, byte patternToInsert[], LedControl lc);
     unsigned char BoolArrayToByte(bool array[8]);
 };
 

@@ -5,70 +5,79 @@
 #include "snake.h"
 #include "LedControl.h"
 
-// GAME OVER Patterns
-bool g_pattern[maxRows][maxCols] = {
-    {false, false, false, false, false, false, false, false},
-    {false, true, true, true, true, true, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, true, true, true, false},
-    {false, true, false, false, false, false, false, false},
-    {false, true, true, true, true, true, true, false},
-    {false, false, false, false, false, false, false, false}};
-bool a_pattern[maxRows][maxCols] = {
-    {false, false, false, false, false, false, false, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, true, true, true, true, true, false},
-    {false, true, true, false, false, true, true, false},
-    {false, false, true, false, false, true, false, false},
-    {false, false, false, true, true, false, false, false},
-    {false, false, false, false, false, false, false, false}};
-bool m_pattern[maxRows][maxCols] = {
-    {false, false, false, false, false, false, false, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, true, true, false, true, false},
-    {false, true, false, true, true, false, true, false},
-    {false, true, true, false, false, true, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, false, false, false, false, false, false, false}};
-bool e_pattern[maxRows][maxCols] = {
-    {false, false, false, false, false, false, false, false},
-    {false, true, true, true, true, true, true, false},
-    {false, true, false, false, false, false, false, false},
-    {false, true, true, true, true, true, true, false},
-    {false, true, true, true, true, true, true, false},
-    {false, true, false, false, false, false, false, false},
-    {false, true, true, true, true, true, true, false},
-    {false, false, false, false, false, false, false, false}};
-bool o_pattern[maxRows][maxCols] = {
-    {false, false, false, false, false, false, false, false},
-    {false, true, true, true, true, true, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, true, true, true, true, true, false},
-    {false, false, false, false, false, false, false, false}};
-bool v_pattern[maxRows][maxCols] = {
-    {false, false, false, false, false, false, false, false},
-    {false, false, false, true, true, false, false, false},
-    {false, false, true, false, false, true, false, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, false, false, false, false, false, false, false}};
-bool r_pattern[maxRows][maxCols] = {
-    {false, false, false, false, false, false, false, false},
-    {false, true, false, false, false, true, false, false},
-    {false, true, false, false, true, false, false, false},
-    {false, true, true, true, true, true, false, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, false, false, false, false, true, false},
-    {false, true, true, true, true, true, false, false},
-    {false, false, false, false, false, false, false, false}};
+// GAME OVER Byte Patterns
+byte g_Bytes[8] = {
+    B00000000,
+    B01111110,
+    B01000000,
+    B01001110,
+    B01000010,
+    B01000010,
+    B01111110,
+    B00000000};
+byte a_Bytes[8] = {
+    B00000000,
+    B00011000,
+    B00100100,
+    B01100110,
+    B01111110,
+    B01000010,
+    B01000010,
+    B00000000};
+byte m_Bytes[8] = {
+    B00000000,
+    B01000010,
+    B01100110,
+    B01011010,
+    B01011010,
+    B01000010,
+    B01000010,
+    B00000000};
+byte e_Bytes[8] = {
+    B00000000,
+    B01111110,
+    B01000000,
+    B01111110,
+    B01111110,
+    B01000000,
+    B01111110,
+    B00000000};
+byte o_Bytes[8] = {
+    B00000000,
+    B01111110,
+    B01000010,
+    B01000010,
+    B01000010,
+    B01000010,
+    B01111110,
+    B00000000};
+byte v_Bytes[8] = {
+    B00000000,
+    B01000010,
+    B01000010,
+    B01000010,
+    B01000010,
+    B00100100,
+    B00011000,
+    B00000000};
+byte r_Bytes[8] = {
+    B00000000,
+    B01111100,
+    B01000010,
+    B01000010,
+    B01111100,
+    B01001000,
+    B01000100,
+    B00000000};
+// Byte Array to keep track of currently displayed pattern
+byte currentPattern[8] = {
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000,
+    B00000000};
 
 // Constructor Function Definition
 Display::Display()
@@ -88,7 +97,8 @@ byte Display::BoolArrayToByte(bool array[8])
     return b;
 }
 
-void Display::updateBoardState(Snake *snake, Fruit *fruit, LedControl lc)
+// Function: resetBoardState(LedControl lc)
+void Display::resetBoardState(LedControl lc)
 {
     // Clear board
     for (int i = 0; i < maxRows; i++)
@@ -99,6 +109,12 @@ void Display::updateBoardState(Snake *snake, Fruit *fruit, LedControl lc)
         }
     }
     lc.clearDisplay(0);
+}
+
+void Display::updateBoardState(Snake *snake, Fruit *fruit, LedControl lc)
+{
+    // Clear board
+    resetBoardState(lc);
     // Loop through snake segments
     SnakeSegment *temp = snake->head;
     while (temp != NULL)
@@ -116,80 +132,44 @@ void Display::updateBoardState(Snake *snake, Fruit *fruit, LedControl lc)
     }
 };
 
+byte *Display::updatePattern(byte *patternToUpdate, byte patternToInsert[], LedControl lc)
+{
+    // For each bit of the byte pattern
+    for (int i = 0; i < maxCols; i++)
+    {
+        // Display the current byte pattern
+        for (int j = 0; j < maxRows; j++)
+        {
+            // Set the current row's LED byte pattern
+            lc.setRow(0, j, patternToUpdate[j]);
+            // Left shift each row by 1 bit (adds a 0 as the LSB)
+            patternToUpdate[j] = patternToUpdate[j] << 1;
+            // Insert the next bit of the new letter pattern
+            patternToUpdate[j] |= (patternToInsert[j] >> (7 - i));
+        }
+        delay(100);
+    }
+    return patternToUpdate;
+}
+
 void Display::gameOver(LedControl lc)
 {
-    // Update board to display GAME screen
-    // for (int i = 0; i < maxRows; i++)
-    // {
-    //     for (int j = 0; j < maxCols; j++)
-    //     {
-
-    //         board[i][j] = game[i][j];
-    //     }
-    // }
-
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(g_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(a_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(m_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(e_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(o_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(v_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(e_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
-    // Display the updated board state
-    for (int i = 0; i < maxRows; i++)
-    {
-        // Set the current row's LED byte pattern
-        lc.setRow(0, i, Display::BoolArrayToByte(r_pattern[i]));
-        // delay(50);
-    }
-    delay(500);
+    // Display 'GAME OVER'
+    byte currentPattern[8] = {
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000,
+        B00000000};
+    byte *current = currentPattern;
+    current = updatePattern(current, g_Bytes, lc);
+    current = updatePattern(current, a_Bytes, lc);
+    current = updatePattern(current, m_Bytes, lc);
+    current = updatePattern(current, e_Bytes, lc);
+    current = updatePattern(current, o_Bytes, lc);
+    current = updatePattern(current, v_Bytes, lc);
+    current = updatePattern(current, e_Bytes, lc);
+    current = updatePattern(current, r_Bytes, lc);
 }

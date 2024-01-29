@@ -26,11 +26,6 @@ Fruit *fruit = new Fruit();
 // Create an instance of the Display class
 Display display = Display();
 
-// Game State
-// true - Normal
-// false - Game Over
-// bool continueGame = true;
-
 void setup()
 {
   // initialize GDB stub
@@ -48,12 +43,12 @@ void setup()
   Serial.begin(115200);
 
   // Setup the default snake (Head and 1 Tail Segment)
-  snake->pushBack(2, 3);
-  snake->pushBack(1, 3);
-  snake->pushBack(0, 3);
+  snake->pushBack(5, 3);
+  snake->pushBack(6, 3);
+  snake->pushBack(7, 3);
 
   // Setup the default fruit
-  fruit->setX(6);
+  fruit->setX(1);
   fruit->setY(3);
   // Acquire the default center values of the joystick
   joystick.getCentreValues();
@@ -61,9 +56,9 @@ void setup()
 
 void loop()
 {
+  // While the game is to be continued
   while (joystick.continueGame)
   {
-    // Serial.print(snake.tail.size());
     // Move the snake
     joystick.continueGame = snake->moveSnake(fruit);
     // Update the display state
@@ -73,6 +68,17 @@ void loop()
     // Add a delay between snake movement
     delay(1000);
   }
+  // Display the 'GAME OVER' screen
   display.gameOver(lc);
-  delay(5000);
+  // If the game was reset by the user
+  if (joystick.continueGame)
+  {
+    // Reset the board state
+    display.resetBoardState(lc);
+    // Reset the fruit's position
+    fruit->setX(1);
+    fruit->setY(3);
+    // Reset the snake's size to 3 segments and its position to the start
+    snake->reset();
+  }
 }

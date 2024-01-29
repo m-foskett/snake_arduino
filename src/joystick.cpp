@@ -10,7 +10,6 @@ static void globalInterruptHandler(void)
 {
     joystickPointer->joystickISR(); // Call the class member handler
 }
-// volatile bool Joystick::continueGame;
 
 // Constructor Function Definition
 Joystick::Joystick(int xPin, int yPin, int swPin)

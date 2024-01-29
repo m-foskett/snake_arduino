@@ -21,7 +21,7 @@ class Snake
 private:
 public:
     SnakeSegment *head{NULL};
-    direction direction{UP};
+    direction direction{DOWN};
     // Constructor Function Declaration
     Snake();
     // Member Function Declarations
@@ -29,6 +29,7 @@ public:
     void popBack();
     void pushFront(int x, int y);
     void pushBack(int x, int y);
+    void reset();
     // Access Function Definitions
 };
 

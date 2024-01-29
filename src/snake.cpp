@@ -137,3 +137,19 @@ bool Snake::moveSnake(Fruit *fruit)
     this->popBack();
     return true;
 };
+
+void Snake::reset()
+{
+    while (head->next->next->next != NULL)
+    {
+        this->popBack();
+    }
+    head->setX(5);
+    head->setY(3);
+    head->next->setX(6);
+    head->next->setY(3);
+    head->next->next->setX(7);
+    head->next->next->setY(3);
+    // Reset the direction of the snake
+    direction = DOWN;
+}

@@ -15,7 +15,8 @@ Controlled with an analog joystick module and running on an Arduino Uno.
 
 ## :computer: Screenshots
 <div style="display: inline_block" align="center"><br>
- <img align="center" alt="Demo Usage"  width="1200" src="/screenshots/demo_usage.gif">
+ <img align="center" alt="Demo Usage"  width="400" src="/screenshots/demo_usage.gif">
+ <img align="center" alt="Demo Usage"  width="400" src="/screenshots/game_over.gif">
 </div>
 
 ## :books: Tech-Stack
